@@ -1,8 +1,8 @@
-import {formatDay, formatMonthYYYY, nowInOffset, parseUTCDate} from './date'
+import { formatDay, formatMonthYYYY, nowInOffset, parseUTCDate } from './date'
 
 const PERIODS = ['day', 'month', '7d', '30d', '60d', '6mo', '12mo', 'custom']
 
-export function parseQuery(querystring, site) {
+export function parseQuery (querystring, site) {
   const q = new URLSearchParams(querystring)
   let period = q.get('period')
   const periodKey = 'period__' + site.domain
@@ -22,11 +22,11 @@ export function parseQuery(querystring, site) {
     date: q.get('date') ? parseUTCDate(q.get('date')) : nowInOffset(site.offset),
     from: q.get('from') ? parseUTCDate(q.get('from')) : undefined,
     to: q.get('to') ? parseUTCDate(q.get('to')) : undefined,
-    filters: {'goal': q.get('goal')}
+    filters: { goal: q.get('goal') }
   }
 }
 
-export function toHuman(query) {
+export function toHuman (query) {
   if (query.period === 'day') {
     return `on ${formatDay(query.date)}`
   } else if (query.period === 'month') {
@@ -44,13 +44,13 @@ export function toHuman(query) {
   }
 }
 
-export function removeQueryParam(search, parameter) {
+export function removeQueryParam (search, parameter) {
   const q = new URLSearchParams(search)
   q.delete(parameter)
   return q.toString()
 }
 
-export function eventName(query) {
+export function eventName (query) {
   if (query.filters.goal) {
     if (query.filters.goal.startsWith('Visit ')) {
       return 'pageviews'

@@ -1,7 +1,7 @@
 const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
     './js/**/*.js',
-    '../lib/plausible_web/templates/**/*.html.eex',
+    '../lib/plausible_web/templates/**/*.html.eex'
   ],
 
   defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || []
@@ -12,7 +12,7 @@ module.exports = {
     require('tailwindcss'),
     require('autoprefixer'),
     ...process.env.NODE_ENV === 'production'
-    ? [purgecss]
-    : []
+      ? [purgecss]
+      : []
   ]
 }

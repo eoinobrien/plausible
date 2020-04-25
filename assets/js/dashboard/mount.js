@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'url-search-params-polyfill';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import 'url-search-params-polyfill'
 
 import Router from './router'
 
@@ -13,5 +13,5 @@ if (container) {
     hasGoals: container.dataset.hasGoals === 'true'
   }
 
-  ReactDOM.render(<Router site={site} />, container);
+  ReactDOM.render(<Router site={site} />, container)
 }

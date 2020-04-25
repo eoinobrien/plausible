@@ -1,15 +1,16 @@
-import {formatISO} from './date'
+import { formatISO } from './date'
 
-function serialize(obj) {
-  var str = [];
-  for (var p in obj)
+function serialize (obj) {
+  var str = []
+  for (var p in obj) {
     if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]))
     }
-  return str.join("&");
+  }
+  return str.join('&')
 }
 
-export function serializeQuery(query, extraQuery=[]) {
+export function serializeQuery (query, extraQuery = []) {
   query = Object.assign({}, query, {
     date: query.date ? formatISO(query.date) : undefined,
     from: query.from ? formatISO(query.from) : undefined,
@@ -20,7 +21,7 @@ export function serializeQuery(query, extraQuery=[]) {
   return '?' + serialize(query)
 }
 
-export function get(url, query, ...extraQuery) {
+export function get (url, query, ...extraQuery) {
   url = url + serializeQuery(query, extraQuery)
   return fetch(url).then(res => res.json())
 }

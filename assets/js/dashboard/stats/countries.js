@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import Datamap from 'datamaps'
 
 import FadeIn from '../fade-in'
@@ -7,7 +7,7 @@ import MoreLink from './more-link'
 import * as api from '../api'
 
 export default class Countries extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.resizeMap = this.resizeMap.bind(this)
     this.state = {
@@ -15,46 +15,46 @@ export default class Countries extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.fetchCountries()
-    window.addEventListener('resize', this.resizeMap);
+    window.addEventListener('resize', this.resizeMap)
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resizeMap);
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.resizeMap)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (this.props.query !== prevProps.query) {
-      this.setState({loading: true, countries: null})
+      this.setState({ loading: true, countries: null })
       this.fetchCountries()
     }
   }
 
-  fetchCountries() {
+  fetchCountries () {
     api.get(`/api/stats/${encodeURIComponent(this.props.site.domain)}/countries`, this.props.query)
-      .then((res) => this.setState({loading: false, countries: res}))
+      .then((res) => this.setState({ loading: false, countries: res }))
       .then(() => this.drawMap())
   }
 
-  resizeMap() {
+  resizeMap () {
     this.map && this.map.resize()
   }
 
-  drawMap() {
-    var dataset = {};
+  drawMap () {
+    var dataset = {}
 
-    var onlyValues = this.state.countries.map(function(obj){ return obj.count });
-    var minValue = Math.min.apply(null, onlyValues),
-      maxValue = Math.max.apply(null, onlyValues);
+    var onlyValues = this.state.countries.map(function (obj) { return obj.count })
+    var minValue = Math.min.apply(null, onlyValues)
+    var maxValue = Math.max.apply(null, onlyValues)
 
     var paletteScale = d3.scale.linear()
-      .domain([minValue,maxValue])
-      .range(["#f3ebff","#a779e9"]);
+      .domain([minValue, maxValue])
+      .range(['#f3ebff', '#a779e9'])
 
-    this.state.countries.forEach(function(item){
-      dataset[item.name] = {numberOfThings: item.count, fillColor: paletteScale(item.count)};
-    });
+    this.state.countries.forEach(function (item) {
+      dataset[item.name] = { numberOfThings: item.count, fillColor: paletteScale(item.count) }
+    })
 
     this.map = new Datamap({
       element: document.getElementById('map-container'),
@@ -65,37 +65,37 @@ export default class Countries extends React.Component {
       geographyConfig: {
         borderColor: '#dae1e7',
         highlightBorderWidth: 2,
-        highlightFillColor: function(geo) {
-          return geo['fillColor'] || '#F5F5F5';
+        highlightFillColor: function (geo) {
+          return geo['fillColor'] || '#F5F5F5'
         },
         highlightBorderColor: '#a779e9',
-        popupTemplate: function(geo, data) {
-          if (!data) { return ; }
+        popupTemplate: function (geo, data) {
+          if (!data) { return }
           return ['<div class="hoverinfo">',
             '<strong>', geo.properties.name, '</strong>',
             '<br><strong>', data.numberOfThings, '</strong> Visitors',
-            '</div>'].join('');
+            '</div>'].join('')
         }
       }
-    });
+    })
   }
 
-  renderBody() {
+  renderBody () {
     if (this.state.countries) {
       return (
         <React.Fragment>
-          <h3 className="font-bold">Countries</h3>
-          <div className="mt-6 mx-auto" style={{width: '100%', maxWidth: '475px', height: '320px'}} id="map-container"></div>
-          <MoreLink site={this.props.site} list={this.state.countries} endpoint="countries" />
+          <h3 className='font-bold'>Countries</h3>
+          <div className='mt-6 mx-auto' style={{ width: '100%', maxWidth: '475px', height: '320px' }} id='map-container' />
+          <MoreLink site={this.props.site} list={this.state.countries} endpoint='countries' />
         </React.Fragment>
       )
     }
   }
 
-  render() {
+  render () {
     return (
-      <div className="stats-item relative bg-white shadow-xl rounded p-4" style={{height: '436px'}}>
-        { this.state.loading && <div className="loading my-32 mx-auto"><div></div></div> }
+      <div className='stats-item relative bg-white shadow-xl rounded p-4' style={{ height: '436px' }}>
+        { this.state.loading && <div className='loading my-32 mx-auto'><div /></div> }
         <FadeIn show={!this.state.loading}>
           { this.renderBody() }
         </FadeIn>

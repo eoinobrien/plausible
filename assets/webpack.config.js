@@ -1,10 +1,10 @@
-const path = require('path');
-const glob = require('glob');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const DefinePlugin = require('webpack').DefinePlugin;
+const path = require('path')
+const glob = require('glob')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const DefinePlugin = require('webpack').DefinePlugin
 
 module.exports = (env, options) => ({
   optimization: {
@@ -14,11 +14,11 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-      'app': ['./js/app.js'],
-      'dashboard': ['./js/dashboard/mount.js'],
-      'p': ['./js/p.js'],
-      'analytics': ['./js/plausible.js'],
-      'plausible': ['./js/plausible.js']
+    app: ['./js/app.js'],
+    dashboard: ['./js/dashboard/mount.js'],
+    p: ['./js/p.js'],
+    analytics: ['./js/plausible.js'],
+    plausible: ['./js/plausible.js']
   },
   output: {
     filename: '[name].js',
@@ -41,10 +41,10 @@ module.exports = (env, options) => ({
   },
   externals: { moment: 'moment' },
   plugins: [
-    new MiniCssExtractPlugin({filename: '../css/[name].css'}),
+    new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
     new DefinePlugin({
-      "BASE_URL": JSON.stringify(process.env.BASE_URL || "http://localtest.me:8000")
+      BASE_URL: JSON.stringify(process.env.BASE_URL || 'http://localtest.me:8000')
     })
   ]
-});
+})

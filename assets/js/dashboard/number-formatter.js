@@ -3,7 +3,7 @@ const HUNDRED_THOUSAND = 100000
 const MILLION = 1000000
 const HUNDRED_MILLION = 100000000
 
-export default function numberFormatter(num) {
+export default function numberFormatter (num) {
   if (num >= THOUSAND && num < MILLION) {
     const thousands = num / THOUSAND
     if (thousands === Math.floor(thousands) || num >= HUNDRED_THOUSAND) {
