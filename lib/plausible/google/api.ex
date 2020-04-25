@@ -3,11 +3,11 @@ defmodule Plausible.Google.Api do
   @verified_permission_levels ["siteOwner", "siteFullUser", "siteRestrictedUser"]
 
   def authorize_url(site_id) do
-    if Mix.env() == :test do
-      ""
-    else
-      "https://accounts.google.com/o/oauth2/v2/auth?client_id=#{client_id()}&redirect_uri=#{redirect_uri()}&prompt=consent&response_type=code&access_type=offline&scope=#{@scope}&state=#{site_id}"
-    end
+    ""
+    # if Mix.env() == :test do
+    # else
+    #   "https://accounts.google.com/o/oauth2/v2/auth?client_id=#{client_id()}&redirect_uri=#{redirect_uri()}&prompt=consent&response_type=code&access_type=offline&scope=#{@scope}&state=#{site_id}"
+    # end
   end
 
   def fetch_access_token(code) do
