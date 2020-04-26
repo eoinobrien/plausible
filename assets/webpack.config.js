@@ -44,7 +44,7 @@ module.exports = (env, options) => ({
     new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
     new DefinePlugin({
-      BASE_URL: JSON.stringify(process.env.BASE_URL || 'http://localtest.me:8000')
+      BASE_URL: JSON.stringify(process.env.BASE_URL || 'https://plausible.cri.dev')
     })
   ]
 })
