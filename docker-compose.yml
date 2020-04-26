@@ -9,6 +9,9 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
   web:
     build: .
+    environment:
+      - MIX_ENV=docker
+      - PORT=8000
     command: mix do ecto.create, ecto.migrate
     ports:
       - "8000:8000"
